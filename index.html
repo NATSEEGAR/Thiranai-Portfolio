@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ธีรนัย วรรณชาติ — Full Stack Engineer & Robotics</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f9fb;--bg-alt:#f1f4f8;--surface:#ffffff;
+  --slate-900:#0f172a;--slate-800:#1e293b;--slate-700:#334155;
+  --slate-600:#475569;--slate-500:#64748b;--slate-400:#94a3b8;
+  --slate-200:#e2e8f0;--slate-100:#f1f5f9;
+  --teal:#0d9488;--teal-light:#f0fdfa;--teal-border:#99f6e4;
+  --green:#16a34a;--green-light:#f0fdf4;
+  --border:#e2e8f0;--border-strong:#cbd5e1;
+  --mono:'IBM Plex Mono',monospace;--body:'Sarabun',sans-serif;
+  --r:10px;--rl:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--slate-800);font-family:var(--body);overflow-x:hidden;line-height:1.6;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,249,251,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:var(--mono);font-size:0.78rem;font-weight:600;color:var(--slate-900);}
+.nav-logo span{color:var(--slate-500);font-weight:400;}
+.nav-links{display:flex;gap:1.75rem;list-style:none;}
+.nav-links a{font-size:0.82rem;font-weight:600;color:var(--slate-700);text-decoration:none;transition:color 0.15s;}
+.nav-links a:hover{color:var(--slate-900);}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 340px;gap:4rem;align-items:center;padding:7rem 3rem 4rem;max-width:1100px;margin:0 auto;}
+.hero-name{font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;line-height:1.1;color:var(--slate-900);margin-bottom:0.3rem;letter-spacing:-0.02em;}
+.hero-en{font-family:var(--mono);font-size:0.82rem;color:var(--slate-500);margin-bottom:1.5rem;}
+.hero-pitch{font-size:1rem;color:var(--slate-600);line-height:1.85;max-width:500px;}
+.hero-pitch strong{color:var(--slate-800);}
+.hero-right{position:relative;}
+.hero-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top center;border-radius:var(--rl);border:1px solid var(--border);display:block;}
+/* placeholder ถ้าไม่มีรูป */
+.hero-photo-placeholder{width:100%;aspect-ratio:3/4;background:var(--slate-100);border-radius:var(--rl);border:2px dashed var(--border-strong);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;color:var(--slate-400);font-family:var(--mono);font-size:0.72rem;}
+
+/* ── SECTIONS ── */
+section{padding:5rem 3rem;}
+.inner{max-width:1100px;margin:0 auto;}
+.section-label{font-family:var(--mono);font-size:0.65rem;color:var(--slate-400);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.35rem;}
+.section-title{font-size:1.55rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;letter-spacing:-0.01em;}
+.section-rule{width:36px;height:2px;background:var(--slate-900);margin-bottom:2.5rem;}
+
+/* ── EDUCATION ── */
+#education{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.edu-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--slate-900);border-radius:var(--rl);padding:2rem;display:grid;grid-template-columns:1fr auto;gap:1.5rem;align-items:start;}
+.edu-uni{font-size:1rem;font-weight:700;color:var(--slate-900);margin-bottom:0.2rem;}
+.edu-sub{font-size:0.88rem;color:var(--slate-600);margin-bottom:0.1rem;}
+.edu-spec{font-size:0.85rem;color:var(--slate-500);}
+.edu-honors{display:inline-flex;align-items:center;gap:0.45rem;font-family:var(--mono);font-size:0.72rem;color:var(--teal);background:var(--teal-light);border:1px solid var(--teal-border);padding:0.3rem 0.8rem;border-radius:20px;margin-top:0.75rem;}
+.edu-right{display:flex;flex-direction:column;align-items:flex-end;gap:0.75rem;}
+.gpax-box{text-align:center;background:var(--slate-900);color:#fff;border-radius:var(--r);padding:0.75rem 1.25rem;}
+.gpax-val{font-family:var(--mono);font-size:1.6rem;font-weight:600;line-height:1;}
+.gpax-label{font-size:0.62rem;color:rgba(255,255,255,0.5);margin-top:0.2rem;letter-spacing:0.08em;text-transform:uppercase;}
+.grade-btn{font-family:var(--mono);font-size:0.68rem;background:var(--surface);color:var(--slate-700);border:1px solid var(--border-strong);padding:0.45rem 1rem;border-radius:6px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:0.4rem;white-space:nowrap;}
+.grade-btn:hover{background:var(--slate-100);border-color:var(--slate-400);}
+
+/* ── SKILLS ── */
+#skills{background:var(--bg);}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.skill-group{border:1px solid var(--border);border-radius:var(--rl);padding:1.4rem;background:var(--surface);}
+.skill-group-title{font-family:var(--mono);font-size:0.65rem;color:var(--slate-500);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.85rem;padding-bottom:0.65rem;border-bottom:1px solid var(--border);}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.skill-tag{font-size:0.75rem;padding:0.28rem 0.65rem;border-radius:6px;background:var(--bg);color:var(--slate-600);border:1px solid var(--border);transition:all 0.15s;cursor:default;display:inline-flex;align-items:center;gap:0.35rem;}
+.skill-tag:hover{background:var(--slate-900);color:#fff;border-color:var(--slate-900);}
+.skill-tag.hl{background:var(--teal-light);color:var(--teal);border-color:var(--teal-border);}
+.skill-tag img{width:14px;height:14px;flex-shrink:0;}
+
+/* ── EXPERIENCE ── */
+#experience{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.exp-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--slate-900);border-radius:var(--rl);padding:2rem;}
+.exp-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;}
+.exp-role{font-size:1.05rem;font-weight:700;color:var(--slate-900);}
+.exp-company{font-size:0.82rem;color:var(--slate-500);margin-top:0.2rem;}
+.exp-badge{font-family:var(--mono);font-size:0.65rem;background:var(--slate-100);color:var(--slate-600);border:1px solid var(--border-strong);padding:0.3rem 0.75rem;border-radius:20px;white-space:nowrap;}
+
+/* company description box */
+.company-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:1rem;align-items:flex-start;}
+.company-logos{display:flex;align-items:center;gap:0.5rem;flex-shrink:0;}
+.company-logo-img-wrap{width:52px;height:52px;border-radius:10px;border:1px solid var(--border);background:var(--surface);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.company-logo-img{width:100%;height:100%;object-fit:contain;padding:5px;}
+.company-logo-fallback{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:1.3rem;}
+.company-logo-fallback span{font-size:0.48rem;color:var(--slate-500);font-family:var(--mono);}
+.company-logo-sep{font-size:0.7rem;color:var(--slate-300);font-weight:700;}
+.company-desc{font-size:0.82rem;color:var(--slate-600);line-height:1.75;}
+.company-desc strong{color:var(--slate-800);}
+
+/* wide modal for grade */
+.modal-wide{max-width:760px;}
+
+/* grade meta badges */
+.grade-meta{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.75rem;}
+.grade-badge{font-family:var(--mono);font-size:0.7rem;padding:0.3rem 0.75rem;border-radius:20px;background:var(--slate-900);color:#fff;}
+.grade-badge-gold{background:linear-gradient(135deg,#92400e,#d97706);}
+
+/* transcript scroll */
+.transcript-scroll{display:flex;flex-direction:column;gap:0;}
+.transcript-page{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;position:relative;}
+.transcript-page-label{position:absolute;top:10px;left:12px;font-family:var(--mono);font-size:0.6rem;color:var(--slate-400);background:rgba(255,255,255,0.92);padding:0.15rem 0.5rem;border-radius:4px;z-index:2;border:1px solid var(--border);}
+.transcript-img{width:100%;display:block;}
+.transcript-placeholder{width:100%;aspect-ratio:210/297;background:linear-gradient(145deg,#f8f9fb,#eef1f5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.6rem;border:2px dashed var(--border-strong);}
+.tp-filename{font-family:var(--mono);font-size:0.78rem;color:var(--slate-600);font-weight:600;}
+.tp-hint{font-family:var(--mono);font-size:0.65rem;color:var(--slate-400);}
+.tp-hint code{background:var(--slate-100);padding:0.1rem 0.4rem;border-radius:4px;border:1px solid var(--border);}
+.transcript-divider{display:flex;align-items:center;justify-content:center;padding:1rem 0;color:var(--slate-300);font-family:var(--mono);font-size:0.65rem;letter-spacing:0.1em;}
+.transcript-divider::before,.transcript-divider::after{content:'';flex:1;height:1px;background:var(--border);margin:0 0.75rem;}
+
+.result-list{list-style:none;}
+.result-list li{font-size:0.88rem;color:var(--slate-700);line-height:1.75;padding:0.6rem 0 0.6rem 1.5rem;position:relative;border-bottom:1px solid var(--border);}
+.result-list li:last-child{border-bottom:none;}
+.result-list li::before{content:'▸';color:var(--teal);position:absolute;left:0;font-size:0.75rem;top:0.75rem;}
+.result-num{font-family:var(--mono);font-weight:600;color:var(--slate-900);background:var(--teal-light);border:1px solid var(--teal-border);padding:0.05rem 0.45rem;border-radius:4px;font-size:0.78rem;}
+
+.exp-more-btn{margin-top:1.25rem;font-family:var(--mono);font-size:0.72rem;background:transparent;color:var(--slate-600);border:1px solid var(--border-strong);padding:0.5rem 1.1rem;border-radius:6px;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;gap:0.4rem;}
+.exp-more-btn:hover{background:var(--slate-100);color:var(--slate-900);}
+
+/* work photos */
+.work-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-top:1.5rem;}
+.work-photo{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r);border:1px solid var(--border);display:block;}
+.work-photo-placeholder{width:100%;aspect-ratio:4/3;background:var(--slate-100);border-radius:var(--r);border:2px dashed var(--border-strong);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.35rem;color:var(--slate-400);font-family:var(--mono);font-size:0.65rem;}
+
+/* ── PROJECTS ── */
+#projects{background:var(--bg);}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;}
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;transition:all 0.2s;}
+.project-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-bottom:1px solid var(--border);}
+.project-thumb-placeholder{width:100%;aspect-ratio:16/9;background:var(--slate-100);border-bottom:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;color:var(--slate-400);font-family:var(--mono);font-size:0.68rem;}
+.project-body{padding:1.25rem 1.5rem 1rem;}
+.project-type{font-family:var(--mono);font-size:0.6rem;color:var(--slate-400);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem;}
+.project-name{font-size:0.98rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;}
+.project-impact{background:var(--teal-light);border:1px solid var(--teal-border);border-radius:var(--r);padding:0.6rem 0.85rem;margin-bottom:0.9rem;font-size:0.78rem;color:var(--teal);font-weight:600;}
+.project-desc{font-size:0.82rem;color:var(--slate-500);line-height:1.65;margin-bottom:1rem;}
+.stack-row{display:flex;flex-wrap:wrap;gap:0.3rem;margin-bottom:1rem;}
+.stack-pill{font-family:var(--mono);font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:4px;background:var(--slate-100);color:var(--slate-600);border:1px solid var(--border);}
+.project-more-btn{font-family:var(--mono);font-size:0.7rem;background:var(--slate-900);color:#fff;border:none;padding:0.55rem 1rem;border-radius:6px;cursor:pointer;transition:background 0.15s;display:inline-flex;align-items:center;gap:0.4rem;margin-bottom:1.25rem;}
+.project-more-btn:hover{background:var(--slate-700);}
+
+/* ── CONTACT ── */
+#contact{background:var(--surface);border-top:1px solid var(--border);}
+.contact-list{display:flex;flex-direction:column;gap:0.5rem;max-width:520px;}
+.contact-row{display:flex;gap:1rem;align-items:baseline;font-size:0.9rem;padding:0.4rem 0;border-bottom:1px solid var(--border);}
+.contact-row:last-child{border-bottom:none;}
+.contact-lbl{font-family:var(--mono);font-size:0.68rem;color:var(--slate-400);text-transform:uppercase;letter-spacing:0.08em;width:70px;flex-shrink:0;}
+.contact-val{color:var(--slate-800);font-weight:600;}
+.contact-val a{color:var(--slate-800);text-decoration:none;}
+.contact-val a:hover{color:var(--teal);}
+
+/* ── FOOTER ── */
+footer{padding:1.25rem 3rem;border-top:1px solid var(--border);background:var(--bg);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:0.65rem;color:var(--slate-400);}
+
+/* ── MODAL ── */
+.modal-backdrop{position:fixed;inset:0;z-index:200;background:rgba(15,23,42,0.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s;padding:1.5rem;}
+.modal-backdrop.open{opacity:1;pointer-events:all;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);max-width:680px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(16px);transition:transform 0.2s;box-shadow:0 24px 64px rgba(15,23,42,0.14);}
+.modal-backdrop.open .modal{transform:translateY(0);}
+.modal-head{padding:1.5rem 1.75rem 1.25rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;position:sticky;top:0;background:var(--surface);z-index:1;}
+.modal-head-type{font-family:var(--mono);font-size:0.62rem;color:var(--slate-400);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.3rem;}
+.modal-head-title{font-size:1rem;font-weight:700;color:var(--slate-900);}
+.modal-close{background:var(--bg-alt);border:1px solid var(--border);color:var(--slate-500);cursor:pointer;width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all 0.15s;flex-shrink:0;}
+.modal-close:hover{background:var(--slate-200);}
+.modal-content{padding:1.75rem;}
+.modal-section{margin-bottom:1.5rem;}
+.modal-section h4{font-family:var(--mono);font-size:0.62rem;color:var(--slate-400);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.65rem;}
+.modal-section p{font-size:0.88rem;color:var(--slate-600);line-height:1.8;}
+.modal-section ul{list-style:none;}
+.modal-section ul li{font-size:0.88rem;color:var(--slate-600);line-height:1.75;padding:0.35rem 0 0.35rem 1.25rem;position:relative;}
+.modal-section ul li::before{content:'–';color:var(--slate-300);position:absolute;left:0;}
+.impact-box{background:var(--teal-light);border:1px solid var(--teal-border);border-radius:var(--r);padding:1rem 1.25rem;}
+.impact-box p{color:var(--teal)!important;font-weight:600;}
+.modal-img{width:100%;border-radius:var(--r);border:1px solid var(--border);display:block;margin-top:0.5rem;}
+.modal-img-placeholder{width:100%;aspect-ratio:16/9;background:var(--slate-100);border-radius:var(--r);border:2px dashed var(--border-strong);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;color:var(--slate-400);font-family:var(--mono);font-size:0.72rem;margin-top:0.5rem;}
+.grade-img{width:100%;border-radius:var(--r);border:1px solid var(--border);display:block;}
+
+/* ── IMAGE CAROUSEL ── */
+.carousel{position:relative;border-radius:var(--rl);overflow:hidden;background:var(--slate-900);user-select:none;}
+.carousel-track{display:flex;transition:transform 0.38s cubic-bezier(0.4,0,0.2,1);}
+.carousel-slide{min-width:100%;position:relative;}
+.carousel-slide img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;}
+.carousel-slide-placeholder{width:100%;aspect-ratio:16/9;background:var(--slate-800);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;color:var(--slate-400);font-family:var(--mono);font-size:0.72rem;}
+.carousel-caption{position:absolute;bottom:0;left:0;right:0;padding:0.65rem 1rem;background:linear-gradient(transparent,rgba(0,0,0,0.65));color:#fff;font-size:0.78rem;line-height:1.4;}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.92);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.15s;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+.carousel-btn:hover{background:#fff;box-shadow:0 4px 16px rgba(0,0,0,0.25);}
+.carousel-btn.prev{left:10px;}.carousel-btn.next{right:10px;}
+.carousel-btn:disabled{opacity:0.25;cursor:default;}
+.carousel-dots{display:flex;justify-content:center;gap:0.45rem;margin-top:0.75rem;}
+.carousel-dot{width:7px;height:7px;border-radius:50%;background:var(--slate-200);border:none;cursor:pointer;transition:all 0.2s;padding:0;}
+.carousel-dot.active{background:var(--slate-900);width:20px;border-radius:4px;}
+.carousel-counter{position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.5);color:#fff;font-family:var(--mono);font-size:0.62rem;padding:0.2rem 0.55rem;border-radius:20px;z-index:5;}
+
+/* flow steps */
+.flow-steps{display:flex;flex-direction:column;gap:0.75rem;}
+.flow-step{display:flex;gap:0.85rem;align-items:flex-start;}
+.flow-step-num{width:24px;height:24px;border-radius:50%;background:var(--slate-900);color:#fff;font-family:var(--mono);font-size:0.65rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.1rem;}
+.flow-step-text{font-size:0.87rem;color:var(--slate-600);line-height:1.7;}
+.flow-step-text strong{color:var(--slate-800);}
+
+/* animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fade{opacity:0;animation:fadeUp 0.5s ease forwards;}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}
+
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--slate-200);border-radius:3px;}
+
+@media(max-width:768px){
+  nav{padding:0 1.25rem;}.nav-links{display:none;}
+  #hero{grid-template-columns:1fr;padding:5rem 1.25rem 3rem;gap:2rem;}
+  .hero-right{order:-1;}
+  .hero-photo,.hero-photo-placeholder{aspect-ratio:1/1;}
+  section{padding:3.5rem 1.25rem;}
+  .edu-card{grid-template-columns:1fr;}.edu-right{align-items:flex-start;}
+  .skills-grid{grid-template-columns:1fr;}
+  .work-photos{grid-template-columns:1fr 1fr;}
+  footer{flex-direction:column;gap:0.5rem;padding:1.25rem;text-align:center;}
+}
+</style>
+</head>
+
+<!-- ************************************************************************************************************************************** -->
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">thiranai.dev</div>
+  <ul class="nav-links">
+    <li><a href="#hero">แนะนำตัว</a></li>
+    <li><a href="#education">การศึกษา</a></li>
+    <li><a href="#skills">ทักษะและความสามารถ</a></li>
+    <li><a href="#experience">ประสบการณ์</a></li>
+    <li><a href="#projects">โปรเจกต์และผลงาน</a></li>
+    <li><a href="#contact">ช่องทางการติดต่อ</a></li>
+  </ul>
+</nav>
+
+<!-- ① HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <h1 class="hero-name fade d1">ธีรนัย วรรณชาติ</h1>
+    <div class="hero-en fade d1">Thiranai Wannachat &nbsp;·&nbsp; เน็ท &nbsp;·&nbsp; อายุ 22 ปี</div>
+    <p class="hero-pitch fade d2">มีทักษะในการพัฒนา <strong>Web Application แบบ Full Stack</strong> ควบคู่กับความรู้ด้าน<strong>ระบบอัตโนมัติและหุ่นยนต์อุตสาหกรรม</strong> รวมถึงมีพื้นฐานที่แข็งแกร่งด้าน <strong>Machine Learning และ Digital Image Processing</strong></p>
+  </div>
+  <div class="hero-right fade d3">
+    <img src="Pic/myprofile.jpg" alt="ธีรนัย วรรณชาติ" class="hero-photo"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div class="hero-photo-placeholder" style="display:none;">
+      <span style="font-size:2rem;">📷</span>
+      <span>myprofile.jpg</span>
+    </div>
+  </div>
+</section>
+
+<!-- ② EDUCATION -->
+<section id="education">
+  <div class="inner">
+    <div class="section-label">— Education</div>
+    <h2 class="section-title">การศึกษา</h2>
+    <div class="section-rule"></div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-uni">มหาวิทยาลัยราชภัฏพิบูลสงคราม</div>
+        <div class="edu-sub" style="margin-top:0.35rem;">คณะเทคโนโลยีอุตสาหกรรม</div>
+        <div class="edu-sub">สาขา วิศวกรรมคอมพิวเตอร์และระบบอัตโนมัติ</div>
+        <div class="edu-spec">เอก หุ่นยนต์และระบบอัตโนมัติ</div>
+        <div class="edu-honors">เกียรตินิยมอันดับ 2</div>
+      </div>
+      <div class="edu-right">
+        <div class="gpax-box">
+          <div class="gpax-val">3.67</div>
+          <div class="gpax-label">GPAX</div>
+        </div>
+        <button class="grade-btn" onclick="openModal('grade')">ดูเกรด</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ SKILLS -->
+<section id="skills">
+  <div class="inner">
+    <div class="section-label">— Skills</div>
+    <h2 class="section-title">ทักษะทางเทคนิค</h2>
+    <div class="section-rule"></div>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <div class="skill-group-title">Web Development</div>
+        <div class="skill-tags">
+          <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="">HTML</span>
+          <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="">CSS</span>
+          <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="">PHP</span>
+          <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="">JavaScript</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag hl"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="">Node.js</span>
+          <span class="skill-tag"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="">C</span>
+          <span class="skill-tag hl"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="">Python</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Robotics & Automation</div>
+        <div class="skill-tags">
+          <span class="skill-tag hl">PLC / Ladder Diagram</span>
+          <span class="skill-tag hl">Service Robot & Robot Arms</span>
+          <span class="skill-tag">AI Object Detection</span>
+          <span class="skill-tag">Digital Image Processing</span>
+          <span class="skill-tag">Arduino</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Tools & Software</div>
+        <div class="skill-tags">
+          <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>SolidWorks</span>
+          <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>AutoCAD</span>
+          <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>LabVIEW</span>
+          <span class="skill-tag">Microsoft Office</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">ทักษะอื่นๆ</div>
+        <div class="skill-tags">
+          <span class="skill-tag">ประกอบ/ซ่อม คอมพิวเตอร์</span>
+          <span class="skill-tag">การทำงานเป็นทีม</span>
+          <span class="skill-tag">ขับรถยนต์ + ใบขับขี่</span>
+          <span class="skill-tag">พ้นภาระทางทหาร</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ④ EXPERIENCE -->
+<section id="experience">
+  <div class="inner">
+    <div class="section-label">— Experience</div>
+    <h2 class="section-title">ประสบการณ์ฝึกสหกิจศึกษา</h2>
+    <div class="section-rule"></div>
+    <div class="exp-card">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">ตำแหน่ง Robot Support</div>
+          <div class="exp-company">บริษัท นำชัยแคร์ จำกัด · สหกิจศึกษา</div>
+        </div>
+        <span class="exp-badge">4 เดือน</span>
+      </div>
+
+      <!-- Company description -->
+      <div class="company-box">
+        <div class="company-logos">
+          <div class="company-logo-img-wrap" title="นำชัยแคร์">
+            <img src="Pic/namchai-logo.png" alt="นำชัยแคร์" class="company-logo-img"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="company-logo-fallback" style="display:none;">🏢<span>นำชัยแคร์</span></div>
+          </div>
+        </div>
+        <div class="company-desc">
+          <strong>บริษัท นำชัยแคร์ จำกัด</strong> เป็นแบรนด์ในเครือของ <strong>บริษัท นำชัย โฮม อิเล็คโทรนิคส์ จำกัด</strong> ทำหน้าที่เป็นตัวแทนจำหน่ายและให้บริการร่วมกับแบรนด์ <strong>PUDU ROBOTICS</strong> — บริษัทเทคโนโลยีที่เน้นการออกแบบและพัฒนาหุ่นยนต์บริการ เช่น หุ่นยนต์ส่งของ หุ่นยนต์เสิร์ฟอาหาร และหุ่นยนต์ทำความสะอาด เพื่อช่วยเพิ่มประสิทธิภาพในการทำงานของธุรกิจไทยหลายประเภท เช่น ร้านอาหาร โรงแรม และภาคอุตสาหกรรมอื่นๆ
+        </div>
+      </div>
+
+      <ul class="result-list">
+        <li>ติดตั้งและเซ็ตอัปหุ่นยนต์บริการ <span class="result-num">PUDU</span> ในธุรกิจร้านอาหาร โรงแรม และอุตสาหกรรม — Mapping เส้นทาง และเชื่อมต่อ Network</li>
+        <li>ซ่อมบำรุงและแก้ไขปัญหา Hardware และ Software ของหุ่นยนต์</li>
+        <li>ประสานงานและให้คำแนะนำวิธีการใช้งานเบื้องต้นแก่ลูกค้า และวิเคราะห์ปัญหาเบื้องต้นเพื่อรายงานผลแก่ทีมวิศวกรส่วนกลาง</li>
+      </ul>
+
+      <button class="exp-more-btn" onclick="openModal('exp')">ดูรูปเพิ่มเติม →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ PROJECTS -->
+<section id="projects">
+  <div class="inner">
+    <div class="section-label">— Projects</div>
+    <h2 class="section-title">โปรเจกต์และผลงาน</h2>
+    <div class="section-rule"></div>
+    <div class="projects-grid">
+
+      <!-- WeJob -->
+      <div class="project-card">
+        <img src="Pic/wejob-preview.png" alt="WeJob" class="project-thumb"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="project-thumb-placeholder" style="display:none;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>wejob-preview.jpg</span>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Full Stack</div>
+          <div class="project-name">WeJob — ระบบบริหารจัดการงานและบุคลากร</div>
+          <div class="project-impact">ลดงานตกหล่น · วางแผนตารางงานได้อย่างมีประสิทธิภาพ · ดูความพึงพอใจของลูกค้า</div>
+          <div class="project-desc">ระบบ Web Application ที่ใช้จริงในองค์กร บริหารคิวงาน ติดตามสถานะ Real-time และดูความพึงพอใจและความคิดเห็นของลูกค้า ในการให้บริการของพนักงาน</div>
+          <div class="stack-row">
+            <span class="stack-pill">React.js</span><span class="stack-pill">TypeScript</span><span class="stack-pill">Supabase</span>
+          </div>
+          <button class="project-more-btn" onclick="openModal('wejob')">ดูรายละเอียด →</button>
+        </div>
+      </div>
+
+      <!-- Pudu -->
+      <div class="project-card">
+        <img src="Pic/pudu-preview.png" alt="Pudu Dashboard" class="project-thumb"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="project-thumb-placeholder" style="display:none;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>pudu-preview.jpg</span>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Backend</div>
+          <div class="project-name">Pudu Fleet Management Dashboard — ระบบบริหารจัดการและติดตามสถานะหุ่นยนต์</div>
+          <div class="project-impact">ติดตามสถานะหุ่นยนต์กว่า 400 เครื่อง · รับรู้ถึงปัญหาการทำงานของหุ่นยนต์และดำเนินการแก้ไขได้ทันที ไม่ต้องรอลูกค้าแจ้ง</div>
+          <div class="project-desc">Webhook Endpoint รับ Real-time data จาก Pudu Cloud พร้อมแสดงข้อมูลสถานะการทำงานของหุ่นยนต์ และ Log Viewer สำหรับทีมเทคนิค</div>
+          <div class="stack-row">
+            <span class="stack-pill">Python</span><span class="stack-pill">Flask</span><span class="stack-pill">Webhook</span>
+          </div>
+          <button class="project-more-btn" onclick="openModal('pudu')">ดูรายละเอียด →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ CONTACT -->
+<section id="contact">
+  <div class="inner">
+    <div class="section-label">— Contact</div>
+    <h2 class="section-title">ช่องทางการติดต่อ</h2>
+    <div class="section-rule"></div>
+    <div class="contact-list">
+      <div class="contact-row">
+        <span class="contact-lbl">Email</span>
+        <span class="contact-val"><a href="mailto:thiranai.w@psru.ac.th">thiranai.w@psru.ac.th</a></span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-lbl">Phone</span>
+        <span class="contact-val"><a href="tel:+66613075881">061-307-5881</a></span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-lbl">LINE ID</span>
+        <span class="contact-val">0613075881</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-lbl">ที่อยู่</span>
+        <span class="contact-val">80 ม.4 ต.ซับสมอทด อ.บึงสามพัน จ.เพชรบูรณ์ 67160</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>ธีรนัย วรรณชาติ — Full Stack Engineer & Robotics</div>
+  <div>thiranai.w@psru.ac.th · 061-307-5881</div>
+</footer>
+
+<!-- ── MODALS ── -->
+
+<!-- GRADE -->
+<div class="modal-backdrop" id="mb-grade" onclick="closeOutside(event,'grade')">
+  <div class="modal modal-wide">
+    <div class="modal-head">
+      <div>
+        <div class="modal-head-type">การศึกษา</div>
+        <div class="modal-head-title">ผลการเรียน (Transcript)</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('grade')">✕</button>
+    </div>
+    <div class="modal-content">
+      <div class="grade-meta">
+        <span class="grade-badge">GPAX 3.67</span>
+        <span class="grade-badge grade-badge-gold">เกียรตินิยมอันดับ 2</span>
+      </div>
+      
+      <div class="transcript-scroll">
+        <!-- หน้า 1 -->
+        <div class="transcript-page">
+          <div class="transcript-page-label">หน้า 1 / 3</div>
+          <img src="Pic/transcript1.jpg" alt="Transcript หน้า 1" class="transcript-img">
+        </div>
+
+        <div class="transcript-divider">
+          <span>— หน้า 2 —</span>
+        </div>
+
+        <!-- หน้า 2 -->
+        <div class="transcript-page">
+          <div class="transcript-page-label">หน้า 2 / 3</div>
+          <img src="Pic/transcript2.jpg" alt="Transcript หน้า 2" class="transcript-img">
+        </div>
+
+        <div class="transcript-divider">
+          <span>— หน้า 3 —</span>
+        </div>
+
+        <!-- หน้า 3 -->
+        <div class="transcript-page">
+          <div class="transcript-page-label">หน้า 3 / 3</div>
+          <img src="Pic/transcript3.jpg" alt="Transcript หน้า 3" class="transcript-img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXP PHOTOS -->
+<div class="modal-backdrop" id="mb-exp" onclick="closeOutside(event,'exp')">
+  <div class="modal">
+    <div class="modal-head">
+      <div><div class="modal-head-type">Experience</div><div class="modal-head-title">รูปขณะปฏิบัติงาน — นำชัยแคร์ / PUDU ROBOTICS</div></div>
+      <button class="modal-close" onclick="closeModal('exp')">✕</button>
+    </div>
+    <div class="modal-content">
+      <p style="font-size:0.82rem;color:var(--slate-500);margin-bottom:1.25rem;">ภาพระหว่างปฏิบัติสหกิจศึกษา บริษัท นำชัยแคร์ จำกัด</p>
+      <div class="carousel" id="carousel-exp">
+        <div class="carousel-counter" id="counter-exp">1 / 6</div>
+        <div class="carousel-track" id="track-exp">
+          <div class="carousel-slide">
+            <img src="Pic/work1.jpg" alt="ปฏิบัติงาน 1">
+            <div class="carousel-caption">รูปปฏิบัติงาน 1</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="Pic/work2.jpg" alt="ปฏิบัติงาน 2">
+            <div class="carousel-caption">รูปปฏิบัติงาน 2</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="Pic/work3.jpg" alt="ปฏิบัติงาน 3">
+            <div class="carousel-caption">รูปปฏิบัติงาน 3</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="Pic/work4.jpg" alt="ปฏิบัติงาน 4">
+            <div class="carousel-caption">รูปปฏิบัติงาน 4</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="Pic/work5.jpg" alt="ปฏิบัติงาน 5">
+            <div class="carousel-caption">รูปปฏิบัติงาน 5</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="Pic/work6.jpg" alt="ปฏิบัติงาน 6">
+            <div class="carousel-caption">รูปปฏิบัติงาน 6</div>
+          </div>
+        </div>
+        <button class="carousel-btn prev" id="prev-exp" onclick="moveCarousel('exp',-1)" disabled>‹</button>
+        <button class="carousel-btn next" id="next-exp" onclick="moveCarousel('exp',1)">›</button>
+      </div>
+      <div class="carousel-dots" id="dots-exp"></div>
+    </div>
+  </div>
+</div>
+
+<!-- WEJOB -->
+<div class="modal-backdrop" id="mb-wejob" onclick="closeOutside(event,'wejob')">
+  <div class="modal">
+    <div class="modal-head">
+      <div><div class="modal-head-type">Full Stack</div><div class="modal-head-title">WeJob — ระบบบริหารจัดการงานและบุคลากร</div></div>
+      <button class="modal-close" onclick="closeModal('wejob')">✕</button>
+    </div>
+    <div class="modal-content">
+
+      <div class="modal-section">
+        <h4>ที่มาของโครงงาน</h4>
+        <p>เดิมทีการแจ้งคิวงานช่างของบริษัทต้องทำผ่าน LINE Group ส่งผลให้เกิดความสับสนในการรับงาน และอาจเกิดความผิดพลาดในการจ่ายงานได้ — โครงงานนี้จึงถูกสร้างขึ้นเพื่อแก้ปัญหาเหล่านี้ โดยทำให้ระบบสามารถดูภาพรวมงานทั้งหมดในเดือนนั้นๆได้ ทำให้วางแผนในการจ่ายงานได้อย่างมีประสิทธิภาพ และให้พนักงานสามารถดูงานทั้งหมดของตัวเองได้อย่างชัดเจน ลดการตกหล่นของงาน</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>ระบบทำงานอย่างไร</h4>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="flow-step-num">1</div><div class="flow-step-text"><strong>Admin</strong> — สร้างคิวงาน และจ่ายงานให้ช่าง กรอกรายละเอียดงาน ระบุลูกค้า วันที่ และสถานที่</div></div>
+          <div class="flow-step"><div class="flow-step-num">2</div><div class="flow-step-text"><strong>ช่างปฏิบัติงาน</strong> — อัปโหลดรูปหลักฐาน และให้ลูกค้าสแกน QR Code เพื่อทำแบบสอบถามความพึงพอใจ</div></div>
+          <div class="flow-step"><div class="flow-step-num">3</div><div class="flow-step-text"><strong>ลูกค้า</strong> — ทำแบบสอบถามความพึงพอใจ ว่ารู้สึกประทับใจในการบริการของช่างคนนี้หรือไม่</div></div>
+          <div class="flow-step"><div class="flow-step-num">4</div><div class="flow-step-text"><strong>Manager</strong> — ตรวจสอบความเรียบร้อยของงานที่ช่างอัปโหลด และดูความคิดเห็นของลูกค้า</div></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>ความสามารถหลัก</h4>
+        <ul>
+          <li>ระบบจ่ายคิวงาน และติดตามสถานะงาน ผ่านปฏิทิน/ตารางงาน</li>
+          <li>อัปโหลดรูปหลักฐานการทำงาน ผ่านมือถือ</li>
+          <li>ระบบ Feedback เพื่อรับฟังความคิดเห็นจากลูกค้า ทำให้นำมาปรับปรุงแก้ไข เพื่อให้การบริการดียิ่งขึ้น</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>ผลลัพธ์ที่ได้</h4>
+        <div class="impact-box"><p>ลดงานตกหล่น · วางแผนตารางงานได้อย่างมีประสิทธิภาพ · ดูความพึงพอใจของลูกค้า · ลูกค้าเชื่อมั่นมากขึ้นด้วยระบบสอบถามความพึงพอใจ</p></div>
+      </div>
+
+      <div class="modal-section">
+        <h4>หน้าจอระบบ</h4>
+        <div class="carousel" id="carousel-wejob">
+          <div class="carousel-counter" id="counter-wejob">1 / 7</div>
+          <div class="carousel-track" id="track-wejob">
+            <div class="carousel-slide">
+              <img src="Pic/wejob-1.png" alt="wejob-1">
+              <div class="carousel-caption">หน้า Login — ภาพระบบ Login</div>
+            </div>
+            <div class="carousel-slide">
+              <img src="Pic/wejob-2.png" alt="wejob-2">
+              <div class="carousel-caption">ระบบปฏิทินงาน — ภาพหน้าตารางงานทั้งหมด</div>
+            </div>
+            <div class="carousel-slide">
+              <img src="Pic/wejob-3.png" alt="wejob-3">
+              <div class="carousel-caption">ระบบปฏิทินงาน — ภาพหน้าปฏิทินงานทั้งหมด</div>
+            </div>
+            <div class="carousel-slide">
+              <img src="Pic/wejob-4.png" alt="wejob-4">
+              <div class="carousel-caption">ระบบสร้างงาน — ภาพหน้าสร้างงาน</div>
+            </div>
+            <div class="carousel-slide">
+              <img src="Pic/wejob-5.png" alt="wejob-5">
+              <div class="carousel-caption">รูปหน้ารายละเอียดงาน</div>
+            </div>
+            <div class="carousel-slide">
+              <img src="Pic/wejob-6.png" alt="wejob-6">
+              <div class="carousel-caption">รูปหน้ารายละเอียดงาน</div>
+            </div>
+            <div class="carousel-slide">
+              <img src="Pic/wejob-7.png" alt="wejob-7">
+              <div class="carousel-caption">รูปหน้า Feedback จากลูกค้า</div>
+            </div>
+          </div>
+          <button class="carousel-btn prev" id="prev-wejob" onclick="moveCarousel('wejob',-1)" disabled>‹</button>
+          <button class="carousel-btn next" id="next-wejob" onclick="moveCarousel('wejob',1)">›</button>
+        </div>
+        <div class="carousel-dots" id="dots-wejob"></div>
+      </div>
+
+      <div class="modal-section">
+        <div class="stack-row">
+          <span class="stack-pill">React.js</span><span class="stack-pill">TypeScript</span><span class="stack-pill">Supabase</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PUDU -->
+<div class="modal-backdrop" id="mb-pudu" onclick="closeOutside(event,'pudu')">
+  <div class="modal">
+    <div class="modal-head">
+      <div><div class="modal-head-type">Backend</div><div class="modal-head-title">Pudu Fleet Management Dashboard — ระบบบริหารจัดการและติดตามสถานะหุ่นยนต์</div></div>
+      <button class="modal-close" onclick="closeModal('pudu')">✕</button>
+    </div>
+    <div class="modal-content">
+
+      <div class="modal-section">
+        <h4>ที่มาของโครงงาน</h4>
+        <p>บริษัท นำชัยแคร์ จำกัด มีการให้บริการหุ่นยนต์จำนวนมากกระจายอยู่ตามสาขาและแบรนด์ต่างๆ แต่ยังไม่มีระบบส่วนกลางที่สามารถดูสถานะของหุ่นยนต์ทั้งหมดพร้อมกันได้ และเมื่อเกิดปัญหาขึ้น ทีมงานไม่สามารถรับรู้ได้ทันที ต้องรอให้ผู้ใช้บริการติดต่อเข้ามาก่อน — จึงทำให้การแก้ปัญหาล่าช้าและเกิดผลกระทบต่อลูกค้า</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>ระบบทำงานอย่างไร</h4>
+        <div class="flow-steps">
+          <div class="flow-step"><div class="flow-step-num">1</div><div class="flow-step-text"><strong>Pudu Cloud ส่งข้อมูล</strong> — สถานะหุ่นยนต์ทุกเครื่องถูกส่งมาแบบ Real-time ผ่าน Webhook</div></div>
+          <div class="flow-step"><div class="flow-step-num">2</div><div class="flow-step-text"><strong>Backend ประมวลผล</strong> — กรองข้อมูลที่ต้องการจาก Logs ที่ถูกส่งมาเพื่อนำไปแสดงผล และ Auto Cache Management ตอนเที่ยงคืน เพื่อรักษาเสถียรภาพ Server</div></div>
+          <div class="flow-step"><div class="flow-step-num">3</div><div class="flow-step-text"><strong>Dashboard แสดงผล</strong> — ทีมงานเห็นสถานะหุ่นยนต์ทุกเครื่องในหน้าเดียว และระบบจะแจ้งเตือนเมื่อมีปัญหา Error</div></div>
+          <div class="flow-step"><div class="flow-step-num">4</div><div class="flow-step-text"><strong>Log Viewer</strong> — ทีมเทคนิคสามารถตรวจสอบ Raw Logs (JSON) เพื่อวิเคราะห์ปัญหาเชิงลึก</div></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>ความสามารถหลัก</h4>
+        <ul>
+          <li>Webhook Endpoint รับ Real-time data จาก Pudu Cloud API ของหุ่นยนต์กว่า 400 เครื่อง</li>
+          <li>แสดงข้อมูลสถานะการทำงานของหุ่นยนต์ และแจ้งเตือนเมื่อหุ่นยนต์เกิด Error</li>
+          <li>ระบบ Memory Management Auto Cache Clear ตอนเที่ยงคืน เพื่อรักษา Server ให้เสถียรตลอด</li>
+          <li>Raw Logs Viewer (JSON Format) ให้ทีมเทคนิควิเคราะห์ปัญหาเชิงลึก</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>ผลลัพธ์ที่ได้</h4>
+        <div class="impact-box"><p>Monitor หุ่นยนต์กว่า 400 เครื่องในหน้าจอเดียว · รับรู้ถึงปัญหาการทำงานของหุ่นยนต์และดำเนินการแก้ไขได้ทันที ไม่ต้องรอลูกค้าแจ้ง</p></div>
+      </div>
+
+      <div class="modal-section">
+        <h4>หน้าจอระบบ</h4>
+        <div class="carousel" id="carousel-pudu">
+          <div class="carousel-counter" id="counter-pudu">1 / 4</div>
+          <div class="carousel-track" id="track-pudu">
+            <div class="carousel-slide">
+              <img src="Pic/pudu-1.png" alt="pudu-1">
+            </div>
+            <div class="carousel-slide">
+              <img src="Pic/pudu-2.png" alt="pudu-2">
+            </div>
+            <div class="carousel-slide">
+              <img src="Pic/pudu-3.png" alt="pudu-3">
+            </div>
+            <div class="carousel-slide">
+              <img src="Pic/pudu-4.png" alt="pudu-4">
+            </div>
+          </div>
+          <button class="carousel-btn prev" id="prev-pudu" onclick="moveCarousel('pudu',-1)" disabled>‹</button>
+          <button class="carousel-btn next" id="next-pudu" onclick="moveCarousel('pudu',1)">›</button>
+        </div>
+        <div class="carousel-dots" id="dots-pudu"></div>
+      </div>
+
+      <div class="modal-section">
+        <div class="stack-row">
+          <span class="stack-pill">Python</span><span class="stack-pill">Flask</span><span class="stack-pill">Webhook</span><span class="stack-pill">JSON API</span><span class="stack-pill">Cache</span><span class="stack-pill">Memory Mgmt</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── MODAL ── */
+function openModal(id){
+  document.getElementById('mb-'+id).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(id){
+  document.getElementById('mb-'+id).classList.remove('open');
+  document.body.style.overflow='';
+  // reset carousel ของ modal นั้นกลับ slide แรก
+  if(carousels[id]) goToSlide(id, 0);
+}
+function closeOutside(e,id){if(e.target===document.getElementById('mb-'+id))closeModal(id);}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.modal-backdrop.open').forEach(m=>{
+      const id=m.id.replace('mb-','');
+      m.classList.remove('open');
+      document.body.style.overflow='';
+      if(carousels[id]) goToSlide(id,0);
+    });
+  }
+  // arrow keys เมื่อ modal เปิดอยู่
+  const open=document.querySelector('.modal-backdrop.open');
+  if(open){
+    const id=open.id.replace('mb-','');
+    if(carousels[id]){
+      if(e.key==='ArrowLeft') moveCarousel(id,-1);
+      if(e.key==='ArrowRight') moveCarousel(id,1);
+    }
+  }
+});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* ── CAROUSEL ── */
+const carousels = {};
+
+function initCarousel(id) {
+  const track = document.getElementById('track-'+id);
+  if(!track) return;
+  const slides = track.querySelectorAll('.carousel-slide');
+  const total = slides.length;
+  carousels[id] = { current: 0, total };
+
+  // สร้าง dots
+  const dotsEl = document.getElementById('dots-'+id);
+  if(dotsEl){
+    dotsEl.innerHTML = '';
+    for(let i=0;i<total;i++){
+      const d = document.createElement('button');
+      d.className = 'carousel-dot' + (i===0?' active':'');
+      d.setAttribute('aria-label','ไปรูปที่ '+(i+1));
+      d.onclick = () => goToSlide(id, i);
+      dotsEl.appendChild(d);
+    }
+  }
+  updateCarouselUI(id);
+}
+
+function goToSlide(id, index) {
+  const c = carousels[id];
+  if(!c) return;
+  c.current = Math.max(0, Math.min(index, c.total-1));
+  updateCarouselUI(id);
+}
+
+function moveCarousel(id, dir) {
+  const c = carousels[id];
+  if(!c) return;
+  goToSlide(id, c.current + dir);
+}
+
+function updateCarouselUI(id) {
+  const c = carousels[id];
+  if(!c) return;
+
+  // slide
+  const track = document.getElementById('track-'+id);
+  if(track) track.style.transform = `translateX(-${c.current * 100}%)`;
+
+  // counter
+  const counter = document.getElementById('counter-'+id);
+  if(counter) counter.textContent = `${c.current+1} / ${c.total}`;
+
+  // buttons
+  const prev = document.getElementById('prev-'+id);
+  const next = document.getElementById('next-'+id);
+  if(prev) prev.disabled = c.current === 0;
+  if(next) next.disabled = c.current === c.total-1;
+
+  // dots
+  const dotsEl = document.getElementById('dots-'+id);
+  if(dotsEl){
+    dotsEl.querySelectorAll('.carousel-dot').forEach((d,i)=>{
+      d.classList.toggle('active', i===c.current);
+    });
+  }
+}
+
+// Touch/swipe support
+function addSwipe(id) {
+  const el = document.getElementById('carousel-'+id);
+  if(!el) return;
+  let startX = 0;
+  el.addEventListener('touchstart', e=>{ startX = e.touches[0].clientX; }, {passive:true});
+  el.addEventListener('touchend', e=>{
+    const diff = startX - e.changedTouches[0].clientX;
+    if(Math.abs(diff) > 40) moveCarousel(id, diff > 0 ? 1 : -1);
+  }, {passive:true});
+}
+
+// init all carousels on load
+window.addEventListener('DOMContentLoaded', ()=>{
+  ['wejob','pudu','exp'].forEach(id=>{
+    initCarousel(id);
+    addSwipe(id);
+  });
+});
+</script>
+</body>
+</html>
